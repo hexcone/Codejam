@@ -40,15 +40,20 @@ public class PatternsOverlap {
 		char second = pat2.charAt(0);
 		
 		boolean possible = false;
-		if ((first != '*') && (first == second)) {
+		if ((first != '*') && (second != '*') && (first == second)) {
 			// matched char
 			possible = compute(pat1.substring(1, pat1.length()), pat2.substring(1, pat2.length()));
-		} else {
+		} else if (((first != '*') && (second != '*') && (first != second))) {
+			// non-matching char
+			possible = false;
+		} else if ((first == '*') || (second == '*')) {
+			// either is a wild
 			if (first == '*') {
 				for (int i = 0; i < 5; i++) {
 					if (i <= pat2.length()) {
 						if (compute(pat1.substring(1, pat1.length()), pat2.substring(i, pat2.length()))) {
 							possible = true;
+							break;
 						}
 					}
 				}
@@ -58,6 +63,7 @@ public class PatternsOverlap {
 					if (i <= pat1.length()) {
 						if (compute(pat2.substring(1, pat2.length()), pat1.substring(i, pat1.length()))) {
 							possible = true;
+							break;
 						}
 					}
 				}
