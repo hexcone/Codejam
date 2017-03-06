@@ -31,10 +31,20 @@ public class PatternsOverlap {
 		if ((pat1.isEmpty()) && (pat2.isEmpty())) {
 			return true;
 		} else if ((pat1.isEmpty()) && (!pat2.isEmpty())) {
+			String check = pat2;
+			check = check.replace("*", "");
+			if (check.isEmpty()) {
+				return true;
+			}
 			return false;
 		} else if ((!pat1.isEmpty()) && (pat2.isEmpty())) {
+			String check = pat1;
+			check = check.replace("*", "");
+			if (check.isEmpty()) {
+				return true;
+			}
 			return false;
-		}	
+		}
 		
 		char first = pat1.charAt(0);
 		char second = pat2.charAt(0);
